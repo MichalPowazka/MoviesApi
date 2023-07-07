@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MoviesApi.Entities;
 
@@ -11,9 +12,11 @@ using MoviesApi.Entities;
 namespace MoviesApi.Migrations
 {
     [DbContext(typeof(MovieApiDbContext))]
-    partial class MovieApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230706155101_testSeeding2")]
+    partial class testSeeding2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

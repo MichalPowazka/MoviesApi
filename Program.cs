@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using MoviesApi;
+using MoviesApi.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +10,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<MovieSeeder>();
+builder.Services.AddScoped<MovieApiDbContext>();
+
+
 
 var app = builder.Build();
 
@@ -19,10 +23,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-var scope = app.Services.CreateScope();
-var seeder = scope.ServiceProvider.GetRequiredService<MovieSeeder>();
 
-seeder.Seed();
 
 app.UseHttpsRedirection();
 

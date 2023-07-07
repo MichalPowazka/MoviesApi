@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MoviesApi.Entities;
 
@@ -11,9 +12,11 @@ using MoviesApi.Entities;
 namespace MoviesApi.Migrations
 {
     [DbContext(typeof(MovieApiDbContext))]
-    partial class MovieApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230706153029_testSeeding")]
+    partial class testSeeding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,14 +43,6 @@ namespace MoviesApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Movies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Test",
-                            Title = "Spiderman"
-                        });
                 });
 
             modelBuilder.Entity("MoviesApi.Entities.Review", b =>
@@ -81,17 +76,6 @@ namespace MoviesApi.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Content = "Content",
-                            DateAdd = new DateTime(2023, 7, 6, 17, 51, 1, 609, DateTimeKind.Local).AddTicks(5891),
-                            MovieId = 1,
-                            Rate = 4f,
-                            UserId = 1
-                        });
                 });
 
             modelBuilder.Entity("MoviesApi.Entities.User", b =>

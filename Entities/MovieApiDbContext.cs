@@ -23,8 +23,37 @@ namespace MoviesApi.Entities
                 .Property(r => r.Content)
                 .IsRequired();
 
-            modelBuilder.Entity<Review>()
-                .HasData()
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id =1,
+                    UserName = "Test",
+                    Password = "Test",
+                    Email = "Test"
+                }
+                );
+
+            modelBuilder.Entity<Review>().HasData(
+                new Review
+                {
+                    Id=1,
+                    Content = "Content",
+                    Rate = 4,
+                    DateAdd = DateTime.Now,
+                    UserId = 1,
+                    MovieId=1,
+                    
+                });
+
+            modelBuilder.Entity<Movie>().HasData(
+                new Movie
+                {
+                    Id = 1,
+                    Title = "Spiderman",
+                    Description = "Test",
+
+                });
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
