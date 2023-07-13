@@ -1,14 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MoviesApi.Entities
+namespace MoviesApi.Models
 {
-    public class Movie
+    public class UpdateMovieDto
     {
-        public int Id { get; set; }
         [Required]
         public string Title { get; set; }
+        [Required]
         public string Description { get; set; }
-        public List<Review> Reviews { get; set; }
+
 
     }
 }

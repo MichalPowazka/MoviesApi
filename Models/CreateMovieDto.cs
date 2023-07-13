@@ -1,14 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MoviesApi.Entities
+namespace MoviesApi.Models
 {
-    public class Movie
+    public class CreateMovieDto
     {
-        public int Id { get; set; }
         [Required]
+        [MaxLength(50)]
         public string Title { get; set; }
         public string Description { get; set; }
-        public List<Review> Reviews { get; set; }
-
     }
 }

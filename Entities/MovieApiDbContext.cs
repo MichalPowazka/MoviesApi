@@ -17,7 +17,10 @@ namespace MoviesApi.Entities
         {
             modelBuilder.Entity<Movie>()
                 .Property(m => m.Title)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(50);
+
+
 
             modelBuilder.Entity<Review>()
                 .Property(r => r.Content)

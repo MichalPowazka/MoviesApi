@@ -1,47 +1,91 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoviesApi.Entities;
 using MoviesApi.Models;
+using MoviesApi.Services;
 
 namespace MoviesApi.Controllers
 {
     [Route("api/movie")]
     public class MovieController : Controller
     {
-        private readonly MovieApiDbContext _dbContext;
+        private readonly IMovieService _movieService;
 
-        public MovieController(MovieApiDbContext dbContext)
+        public MovieController(IMovieService movieService)
         {
-            _dbContext = dbContext;
+            _movieService = movieService;
+
         }
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MovieDto>>> GetAll()
+        public ActionResult<IEnumerable<MovieDto>> GetAll()
         {
-            var movies = await _dbContext.Movies.ToListAsync();
-            var moviesDto = movies.Select(m => new MovieDto()
-            {
-                Id = m.Id,
-                Title = m.Title,
-                Description = m.Description,
-             
-            });
-            return Ok(moviesDto);
+
+            var moviesDtos = _movieService.GetAll();
+
+            return Ok(moviesDtos);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Movie>> Get([FromRoute] int id)
+        public ActionResult<MovieDto> Get([FromRoute] int id)
         {
-            var movie = await _dbContext.Movies.FirstOrDefaultAsync(m => m.Id == id);
+            var movieDto = _movieService.GetById(id);
 
-            if(movie == null)
+            if (movieDto is null)
             {
                 return NotFound();
             }
 
-            return Ok(movie);
+            return Ok(movieDto);
         }
 
-      
+        [HttpPost]
+        public ActionResult CreateMovie([FromBody] CreateMovieDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var id = _movieService.CreateAsync(dto);
+
+            return Created($"/api/movie/{id}", null);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete([FromRoute] int id)
+        {
+            var isDeleted = _movieService.Delete(id);
+
+            if (isDeleted)
+            {
+                return NoContent();
+            }
+            return NotFound();
+        }
+
+        [HttpPut("{id}")]
+
+        public ActionResult<UpdateMovieDto> Update([FromBody] UpdateMovieDto updateMovie , [FromRoute] int id)
+        {
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var isUpdated = _movieService.Update(updateMovie , id);
+
+            if (!isUpdated)
+            {
+                return NotFound();
+            }
+            return Ok(isUpdated);
+
+
+        }
+
+
 
 
 
