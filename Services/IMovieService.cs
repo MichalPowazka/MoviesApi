@@ -8,8 +8,8 @@ namespace MoviesApi.Services
         IEnumerable<MovieDto> GetAll();
         MovieDto GetById(int id);
 
-        bool Delete(int id);
+        void Delete(int id);
 
-        bool Update(UpdateMovieDto updateMovie, int id);
+        void Update(UpdateMovieDto updateMovie, int id);
     }
 }

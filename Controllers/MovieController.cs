@@ -8,6 +8,7 @@ using MoviesApi.Services;
 namespace MoviesApi.Controllers
 {
     [Route("api/movie")]
+    [ApiController]
     public class MovieController : Controller
     {
         private readonly IMovieService _movieService;
@@ -32,10 +33,7 @@ namespace MoviesApi.Controllers
         {
             var movieDto = _movieService.GetById(id);
 
-            if (movieDto is null)
-            {
-                return NotFound();
-            }
+            
 
             return Ok(movieDto);
         }
@@ -43,10 +41,6 @@ namespace MoviesApi.Controllers
         [HttpPost]
         public ActionResult CreateMovie([FromBody] CreateMovieDto dto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
             var id = _movieService.CreateAsync(dto);
 
@@ -56,31 +50,20 @@ namespace MoviesApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete([FromRoute] int id)
         {
-            var isDeleted = _movieService.Delete(id);
+            _movieService.Delete(id);
 
-            if (isDeleted)
-            {
-                return NoContent();
-            }
-            return NotFound();
+            return NoContent();
         }
 
         [HttpPut("{id}")]
 
         public ActionResult<UpdateMovieDto> Update([FromBody] UpdateMovieDto updateMovie , [FromRoute] int id)
         {
-            if(!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+          
+            _movieService.Update(updateMovie , id);
 
-            var isUpdated = _movieService.Update(updateMovie , id);
-
-            if (!isUpdated)
-            {
-                return NotFound();
-            }
-            return Ok(isUpdated);
+            
+            return Ok();
 
 
         }
