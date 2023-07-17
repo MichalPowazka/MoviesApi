@@ -46,6 +46,8 @@ namespace MoviesApi.Services
 
             var reviewDto = _mapper.Map<ReviewDto>(review);
 
+           
+
             return reviewDto;
 
         }
@@ -59,9 +61,20 @@ namespace MoviesApi.Services
             var reviewDtos = _mapper.Map<List<ReviewDto>>(movie.Reviews);
 
             return reviewDtos;
-                                          
+                                        
+  
+        }
+
+
+        public List<Review> GetAll()
+        {
+            var movie = _context.Reviews.Include(m=>m.Movie).ToList();
 
            
+
+            return movie;
+
+
         }
     }
 }

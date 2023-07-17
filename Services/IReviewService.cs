@@ -1,4 +1,5 @@
-﻿using MoviesApi.Models;
+﻿using MoviesApi.Entities;
+using MoviesApi.Models;
 
 namespace MoviesApi.Services
 {
@@ -7,5 +8,6 @@ namespace MoviesApi.Services
         int Create(int movieId, CreateReviewDto reviewDto);
         ReviewDto GetById(int movieId, int reviewId);
         List<ReviewDto> GetAll(int movieId);
+        List<Review> GetAll();
     }
 }

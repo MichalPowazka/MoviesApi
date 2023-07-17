@@ -21,7 +21,7 @@ namespace MoviesApi.Services
         }
         public MovieDto GetById(int id)
         {
-            var movie = _dbContext.Movies.FirstOrDefault(m => m.Id == id);
+            var movie = _dbContext.Movies.Include(r=>r.Reviews).FirstOrDefault(m => m.Id == id);
 
             if (movie is null) throw new NotFoundException("Movie not found");
 
@@ -33,7 +33,9 @@ namespace MoviesApi.Services
 
         public IEnumerable<MovieDto> GetAll()
         {
-            var movies = _dbContext.Movies.ToList();
+            var movies = _dbContext.Movies
+                        .Include(r=>r.Reviews)
+                        .ToList();
 
             var moviesDto = _mapper.Map<List<MovieDto>>(movies);
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MoviesApi.Entities;
 
@@ -11,9 +12,11 @@ using MoviesApi.Entities;
 namespace MoviesApi.Migrations
 {
     [DbContext(typeof(MovieApiDbContext))]
-    partial class MovieApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230717194634_changes4")]
+    partial class changes4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,7 +86,7 @@ namespace MoviesApi.Migrations
                         {
                             Id = 1,
                             Content = "Content",
-                            DateAdd = new DateTime(2023, 7, 17, 21, 57, 15, 752, DateTimeKind.Local).AddTicks(2334),
+                            DateAdd = new DateTime(2023, 7, 17, 21, 46, 34, 196, DateTimeKind.Local).AddTicks(6248),
                             MovieId = 1,
                             Rate = 4f
                         });

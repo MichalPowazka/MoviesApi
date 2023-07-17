@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MoviesApi.Entities;
 using MoviesApi.Models;
 using MoviesApi.Services;
 
@@ -37,6 +38,14 @@ namespace MoviesApi.Controllers
             var reviews = _service.GetAll(movieId);
 
             return Ok(reviews);
+        }
+
+        [HttpGet("kacperek")]
+
+        
+        public ActionResult<List<Review>> GetAll()
+        {
+            return _service.GetAll();
         }
     }
 }

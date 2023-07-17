@@ -26,6 +26,10 @@ namespace MoviesApi.Entities
                 .Property(r => r.Content)
                 .IsRequired();
 
+            modelBuilder.Entity<Movie>().HasMany(m => m.Reviews).WithOne(r => r.Movie).HasForeignKey(r => r.MovieId).HasPrincipalKey(r=> r.Id);
+            modelBuilder.Entity<Movie>().HasKey(r => r.Id);
+            modelBuilder.Entity<Review>().HasKey(r => r.Id);
+
             modelBuilder.Entity<User>().HasData(
                 new User
                 {

@@ -8,7 +8,7 @@ namespace MoviesApi.Entities
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }
-        public List<Review> Reviews { get; set; }
+        public virtual List<Review> Reviews { get; set; }
 
     }
 }

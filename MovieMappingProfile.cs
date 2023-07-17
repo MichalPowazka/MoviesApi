@@ -8,8 +8,8 @@ namespace MoviesApi
     {
         public MovieMappingProfile()
         {
-            //typ zrodlowy na jaki typ chcemy zmapowac
-            CreateMap<Movie, MovieDto>();
+           
+            CreateMap<Movie, MovieDto>().ForMember(dest => dest.Reviews, opt => opt.MapFrom(src => src.Reviews)); ;
 
             CreateMap<Review, ReviewDto>();
 
