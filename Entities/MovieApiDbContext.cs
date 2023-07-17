@@ -43,7 +43,6 @@ namespace MoviesApi.Entities
                     Content = "Content",
                     Rate = 4,
                     DateAdd = DateTime.Now,
-                    UserId = 1,
                     MovieId=1,
                     
                 });

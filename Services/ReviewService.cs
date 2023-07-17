@@ -23,6 +23,7 @@ namespace MoviesApi.Services
             var reviewEntity = _mapper.Map<Review>(reviewDto);
 
             reviewEntity.MovieId = movieId;
+            reviewEntity.DateAdd = DateTime.Now;
 
             _context.Reviews.Add(reviewEntity);
             _context.SaveChanges();
