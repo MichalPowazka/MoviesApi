@@ -5,7 +5,7 @@ using MoviesApi.Services;
 namespace MoviesApi.Controllers
 {
 
-    [Route("api/{movieId}/review")]
+    [Route("api/movie/{movieId}/review")]
     [ApiController]
     public class ReviewController : Controller
     {
@@ -20,7 +20,23 @@ namespace MoviesApi.Controllers
         {
             var newReviewId = _service.Create(movieId, reviewDto);
 
-            return Created($"api/{movieId}/review/{newReviewId}", null);
+            return Created($"api/movie/{movieId}/review/{newReviewId}", null);
+        }
+
+        [HttpGet("{reviewId}")]
+        public ActionResult<ReviewDto> Get([FromRoute] int movieId, [FromRoute] int reviewId)
+        {
+            var review = _service.GetById(movieId, reviewId);
+
+            return Ok(review);
+        }
+
+        [HttpGet]
+        public ActionResult<List<ReviewDto>> Get([FromRoute] int movieId)
+        {
+            var reviews = _service.GetAll(movieId);
+
+            return Ok(reviews);
         }
     }
 }
