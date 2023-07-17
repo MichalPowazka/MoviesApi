@@ -15,6 +15,8 @@ namespace MoviesApi
 
             CreateMap<CreateMovieDto, Movie>();
 
+            CreateMap<CreateReviewDto, Review>();
+
             
         }
     }

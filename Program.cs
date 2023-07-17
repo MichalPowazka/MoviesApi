@@ -24,6 +24,8 @@ builder.Services.AddScoped<MovieApiDbContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IMovieService, MovieService>();
 builder.Services.AddScoped<ErrorHandlingMiddleware>();
+builder.Services.AddScoped<RequestTimeMiddleware>();
+builder.Services.AddScoped<IReviewService,ReviewService>();
 
 
 
@@ -39,6 +41,7 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseMiddleware<RequestTimeMiddleware>();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
