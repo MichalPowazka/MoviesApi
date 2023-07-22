@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MoviesApi.Entities;
 using MoviesApi.Exceptions;
 using MoviesApi.Models;
-using System.Data.Entity;
+
 
 namespace MoviesApi.Services
 {
@@ -16,10 +17,20 @@ namespace MoviesApi.Services
             _context = context;
             _mapper = mapper;
         }
+
+        private Movie GetMovieById(int movieId)
+        {
+            var movie = _context.Movies.Include(r => r.Reviews).FirstOrDefault(r => r.Id == movieId);
+
+            if (movie is null) throw new NotFoundException("Movie not found");
+
+            return movie;
+        }
+
+
         public int Create(int movieId, [FromBody] CreateReviewDto reviewDto)
         {
-            var movie = _context.Movies.FirstOrDefault(x => x.Id == movieId);
-            if (movie is null) throw new NotFoundException("Movie not found");
+            var movie = GetMovieById(movieId);
 
             var reviewEntity = _mapper.Map<Review>(reviewDto);
 
@@ -35,8 +46,7 @@ namespace MoviesApi.Services
 
         public ReviewDto GetById(int movieId, int reviewId)
         {
-            var movie = _context.Movies.FirstOrDefault(m => m.Id == movieId);
-            if(movie is null) throw new NotFoundException($"Movie not found");
+            var movie = GetMovieById(movieId);
 
             var review = _context.Reviews.FirstOrDefault(r=> r.Id == reviewId);
             if(review is null || review.MovieId != movieId)
@@ -54,7 +64,7 @@ namespace MoviesApi.Services
 
         public List<ReviewDto> GetAll(int movieId)
         {
-            var movie = _context.Movies.Include(r =>r.Reviews).FirstOrDefault(r=> r.Id == movieId);
+            var movie = GetMovieById(movieId);
 
             if (movie is null) throw new NotFoundException("Movie not found");
 
@@ -66,15 +76,16 @@ namespace MoviesApi.Services
         }
 
 
-        public List<Review> GetAll()
+        public void RemoveAll(int movieId)
         {
-            var movie = _context.Reviews.Include(m=>m.Movie).ToList();
-
-           
-
-            return movie;
+            var movie = GetMovieById(movieId);
+            _context.RemoveRange(movie.Reviews);
+            _context.SaveChanges();
 
 
         }
+
+
+        
     }
 }

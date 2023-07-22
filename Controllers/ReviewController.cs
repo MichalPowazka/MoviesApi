@@ -16,6 +16,14 @@ namespace MoviesApi.Controllers
             _service = service;
         }
 
+        [HttpDelete]
+        public ActionResult Delete([FromRoute] int movieId)
+        {
+            _service.RemoveAll(movieId);
+
+            return NoContent();
+        }
+
         [HttpPost]
         public ActionResult Post([FromRoute] int movieId, CreateReviewDto reviewDto) 
         {
@@ -40,12 +48,10 @@ namespace MoviesApi.Controllers
             return Ok(reviews);
         }
 
-        [HttpGet("kacperek")]
 
         
-        public ActionResult<List<Review>> GetAll()
-        {
-            return _service.GetAll();
-        }
+
+        
+       
     }
 }

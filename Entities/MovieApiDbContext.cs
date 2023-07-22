@@ -12,9 +12,19 @@ namespace MoviesApi.Entities
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.Email)
+                .IsRequired();
+
+            modelBuilder.Entity<Role>()
+                .Property(r => r.Name)
+                .IsRequired();
+
             modelBuilder.Entity<Movie>()
                 .Property(m => m.Title)
                 .IsRequired()
@@ -30,15 +40,6 @@ namespace MoviesApi.Entities
             modelBuilder.Entity<Movie>().HasKey(r => r.Id);
             modelBuilder.Entity<Review>().HasKey(r => r.Id);
 
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    Id =1,
-                    UserName = "Test",
-                    Password = "Test",
-                    Email = "Test"
-                }
-                );
 
             modelBuilder.Entity<Review>().HasData(
                 new Review
@@ -60,6 +61,18 @@ namespace MoviesApi.Entities
 
                 });
 
+            modelBuilder.Entity<Role>().HasData(
+                new Role()
+                {
+                    Id = 1,
+                    Name = "User"
+                },
+                new Role()
+                {
+                    Id = 2,
+                    Name = "Admin"
+                }
+                );
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

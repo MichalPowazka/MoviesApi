@@ -8,6 +8,6 @@ namespace MoviesApi.Services
         int Create(int movieId, CreateReviewDto reviewDto);
         ReviewDto GetById(int movieId, int reviewId);
         List<ReviewDto> GetAll(int movieId);
-        List<Review> GetAll();
+        void RemoveAll(int movieId);
     }
 }

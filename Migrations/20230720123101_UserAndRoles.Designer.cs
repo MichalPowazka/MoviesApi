@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MoviesApi.Entities;
 
@@ -11,9 +12,10 @@ using MoviesApi.Entities;
 namespace MoviesApi.Migrations
 {
     [DbContext(typeof(MovieApiDbContext))]
-    partial class MovieApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230720123101_UserAndRoles")]
+    partial class UserAndRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,7 +86,7 @@ namespace MoviesApi.Migrations
                         {
                             Id = 1,
                             Content = "Content",
-                            DateAdd = new DateTime(2023, 7, 20, 14, 37, 25, 29, DateTimeKind.Local).AddTicks(3432),
+                            DateAdd = new DateTime(2023, 7, 20, 14, 31, 0, 876, DateTimeKind.Local).AddTicks(3096),
                             MovieId = 1,
                             Rate = 4f
                         });
@@ -105,18 +107,6 @@ namespace MoviesApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Roles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "User"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("MoviesApi.Entities.User", b =>

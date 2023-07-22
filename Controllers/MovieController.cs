@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MoviesApi.Entities;
@@ -19,9 +20,10 @@ namespace MoviesApi.Controllers
 
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult<IEnumerable<MovieDto>> GetAll()
-        {
+         {
 
             var moviesDtos = _movieService.GetAll();
 

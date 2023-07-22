@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using MoviesApi.Entities;
 using MoviesApi.Exceptions;
 using MoviesApi.Models;
 using System.Collections;
-using System.Data.Entity;
+
 
 namespace MoviesApi.Services
 {
