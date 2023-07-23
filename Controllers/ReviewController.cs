@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MoviesApi.Entities;
 using MoviesApi.Models;
 using MoviesApi.Services;
@@ -8,6 +9,7 @@ namespace MoviesApi.Controllers
 
     [Route("api/movie/{movieId}/review")]
     [ApiController]
+    [Authorize]
     public class ReviewController : Controller
     {
         private readonly IReviewService _service;

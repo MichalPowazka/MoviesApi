@@ -10,6 +10,7 @@ namespace MoviesApi.Controllers
 {
     [Route("api/movie")]
     [ApiController]
+    [Authorize]
     public class MovieController : Controller
     {
         private readonly IMovieService _movieService;
@@ -20,7 +21,7 @@ namespace MoviesApi.Controllers
 
         }
 
-        [Authorize]
+              
         [HttpGet]
         public ActionResult<IEnumerable<MovieDto>> GetAll()
          {
@@ -31,6 +32,7 @@ namespace MoviesApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public ActionResult<MovieDto> Get([FromRoute] int id)
         {
             var movieDto = _movieService.GetById(id);

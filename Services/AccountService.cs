@@ -48,7 +48,7 @@ namespace MoviesApi.Services
                 .Include(u=>u.Role)
                 .FirstOrDefault(u=> u.Email == loginDto.Email);
 
-            if (user == null)
+            if (user is null)
             {
                 throw new BadRequestException("Invalid ussername or password");
             }
@@ -73,7 +73,8 @@ namespace MoviesApi.Services
             var cred = new SigningCredentials(key,SecurityAlgorithms.HmacSha256);
             var expires = DateTime.Now.AddDays(_authenticationSettings.JwtExpireDays);
 
-            var token = new JwtSecurityToken(_authenticationSettings.JwtIssuer,
+            var token = new JwtSecurityToken(
+                _authenticationSettings.JwtIssuer,
                 _authenticationSettings.JwtIssuer,
                 claims,
                 expires: expires,
